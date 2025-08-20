@@ -539,6 +539,8 @@ GetSDx <- function(model, modelList, data, standardize = "scale") {
 #' 
 #' @keywords internal
 #' 
+#' @export
+#' 
 GetSDy <- function(model, data, standardize = "scale", standardize.type = "latent.linear") {
   
   data <- as.data.frame(data)
@@ -588,7 +590,7 @@ GetSDy <- function(model, data, standardize = "scale", standardize.type = "laten
             
           }
         
-    } else if(family. %in% c("binomial", "Negative Binomial", "poisson"))
+    } else if(family. %in% c("binomial", "Negative Binomial", "poisson", "tweedie"))
       
       sd.y <- scaleGLM(model, family., link., standardize, standardize.type) else {
         
@@ -607,6 +609,8 @@ GetSDy <- function(model, data, standardize = "scale", standardize.type = "laten
 #' Compute standard deviation or relevant range of response for GLMs
 #' 
 #' @keywords internal
+#' 
+#' @export
 #' 
 scaleGLM <- function(model, family., link., standardize = "scale", standardize.type = "latent.linear") {
   
@@ -642,7 +646,8 @@ scaleGLM <- function(model, family., link., standardize = "scale", standardize.t
     
     if(is.null(names(preds2))) names(preds2) <- rownames(data)
     
-    R <- cor(data[as.numeric(names(preds2)), y], preds2)
+    #Remove as.numeric(names(preds2)) which doesn't work if rows are named
+    R <- cor(data[(names(preds2)), y], preds2)
     
     sd.y <- sqrt(var(preds)) / R
     
