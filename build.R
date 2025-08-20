@@ -10,7 +10,7 @@ pkgdown::build_site()
 
 #-----Build package-------------------------------------------------------------
 
-# piecewiseSEM <- devtools::as.package("./piecewiseSEM")
+piecewiseSEM <- devtools::as.package("../piecewiseSEM")
 
 # Add files to .Rbuildignore
 usethis::use_build_ignore(c("build.R", ".git", ".gitignore", "docs"))

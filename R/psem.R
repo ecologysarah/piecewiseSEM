@@ -35,6 +35,7 @@
 #' @export
 #' 
 psem <- function(...) {
+  print("This is pSEM")
 
   x <- list(...)
 
